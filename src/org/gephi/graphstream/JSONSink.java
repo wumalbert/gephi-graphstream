@@ -13,11 +13,31 @@ import org.graphstream.stream.Sink;
 //import org.apache.commons.codec.binary.Base64;
 
 /**
+ * This class is responsible to send GraphStream event in JSON format to Gephi server,
+ * so as to communicate from GraphStream to Gephi. 
  * @author wumalbert
  *
  */
 public class JSONSink implements Sink {
 
+	private String host; // the host of the Gephi server
+	private int port; // the port of the Gephi server
+	private String workspace; // the workspace name of the Gephi server
+	
+	private static String EOL = "\r\n"; // End of Line
+	
+	/**
+	 * A sink which can send event to an Gephi server in JSON format
+	 * @param host, the host of the Gephi server
+	 * @param port, the port of the Gephi server
+	 * @param workspace, the workspace name of the Gephi server
+	 */
+	public JSONSink(String host, int port, String workspace) {
+		this.host = host;
+		this.port = port;
+		this.workspace = workspace;
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.graphstream.stream.AttributeSink#edgeAttributeAdded(java.lang.String, long, java.lang.String, java.lang.String, java.lang.Object)
 	 */
@@ -39,7 +59,7 @@ public class JSONSink implements Sink {
 		}
 		System.out.println(jsonObj.toString());
 		//send jsonObj to Gephi
-		doSend(jsonObj);
+		doSend(jsonObj, "updateGraph");
 
 	}
 
@@ -64,7 +84,7 @@ public class JSONSink implements Sink {
 		}
 		System.out.println(jsonObj.toString());
 		//send jsonObj to Gephi
-		doSend(jsonObj);
+		doSend(jsonObj, "updateGraph");
 
 	}
 
@@ -89,7 +109,7 @@ public class JSONSink implements Sink {
 		}
 		System.out.println(jsonObj.toString());
 		//send jsonObj to Gephi
-		doSend(jsonObj);
+		doSend(jsonObj, "updateGraph");
 
 	}
 
@@ -112,7 +132,7 @@ public class JSONSink implements Sink {
 		}
 		System.out.println(jsonObj.toString());
 		//send jsonObj to Gephi
-		doSend(jsonObj);
+		doSend(jsonObj, "updateGraph");
 
 	}
 
@@ -135,7 +155,7 @@ public class JSONSink implements Sink {
 		}
 		System.out.println(jsonObj.toString());
 		//send jsonObj to Gephi
-		doSend(jsonObj);
+		doSend(jsonObj, "updateGraph");
 
 	}
 
@@ -157,7 +177,7 @@ public class JSONSink implements Sink {
 		}
 		System.out.println(jsonObj.toString());
 		//send jsonObj to Gephi
-		doSend(jsonObj);
+		doSend(jsonObj, "updateGraph");
 
 	}
 
@@ -183,7 +203,7 @@ public class JSONSink implements Sink {
 		}
 		System.out.println(jsonObj.toString());
 		//send jsonObj to Gephi
-		doSend(jsonObj);
+		doSend(jsonObj, "updateGraph");
 		
 	}
 
@@ -209,7 +229,7 @@ public class JSONSink implements Sink {
 		}
 		System.out.println(jsonObj.toString());
 		//send jsonObj to Gephi
-		doSend(jsonObj);
+		doSend(jsonObj, "updateGraph");
 
 	}
 
@@ -234,7 +254,7 @@ public class JSONSink implements Sink {
 		}
 		System.out.println(jsonObj.toString());
 		//send jsonObj to Gephi
-		doSend(jsonObj);
+		doSend(jsonObj, "updateGraph");
 
 	}
 
@@ -261,7 +281,7 @@ public class JSONSink implements Sink {
 		}
 		System.out.println(jsonObj.toString());
 		//send jsonObj to Gephi
-		doSend(jsonObj);
+		doSend(jsonObj, "updateGraph");
 
 	}
 
@@ -282,7 +302,7 @@ public class JSONSink implements Sink {
 		}
 		System.out.println(jsonObj.toString());
 		//send jsonObj to Gephi
-		doSend(jsonObj);
+		doSend(jsonObj, "updateGraph");
 
 	}
 
@@ -314,7 +334,7 @@ public class JSONSink implements Sink {
 		}
 		System.out.println(jsonObj.toString());
 		//send jsonObj to Gephi
-		doSend(jsonObj);
+		doSend(jsonObj, "updateGraph");
 
 	}
 
@@ -336,7 +356,7 @@ public class JSONSink implements Sink {
 		}
 		System.out.println(jsonObj.toString());
 		//send jsonObj to Gephi
-		doSend(jsonObj);
+		doSend(jsonObj, "updateGraph");
 	}
 
 	/* (non-Javadoc)
@@ -348,9 +368,14 @@ public class JSONSink implements Sink {
 
 	}
 
-	private void doSend(JSONObject obj) {
+	/**
+	 * Send JSONObject message to Gephi server
+	 * @param obj, the JSON message content
+	 * @param operation, the operation sending to the server, like "updateGraph", "getGraph"
+	 */
+	private void doSend(JSONObject obj, String operation) {
 		try {
-            URL url = new URL("http://localhost:8080/workspace0?operation=updateGraph&format=JSON");
+            URL url = new URL("http", host, port, "/"+workspace+"?operation="+operation+"&format=JSON");
 
             URLConnection connection = url.openConnection();
 
@@ -373,11 +398,9 @@ public class JSONSink implements Sink {
     		    InputStream inputStream = connection.getInputStream();
     		    BufferedReader bf = new BufferedReader(new InputStreamReader(inputStream));
     		    String line;
-    		    StringBuilder sb = new StringBuilder();
     		    while ((line = bf.readLine()) != null) {
-    		    	sb.append(line+'\n');
+    		    	System.out.println(line);
     		    }
-    		    System.out.println(sb.toString());
     		    inputStream.close();
     		    
             } catch (UnknownServiceException e) {
@@ -389,7 +412,4 @@ public class JSONSink implements Sink {
         	ex.printStackTrace();
         }
 	}
-	
-	private static String EOL = "\r\n";
-
 }

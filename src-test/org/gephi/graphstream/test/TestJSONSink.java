@@ -16,7 +16,7 @@ public class TestJSONSink {
 		//Nodes already have a position.
 		//graph.display(false);
 		
-		JSONSink jsonSink = new JSONSink();
+		JSONSink jsonSink = new JSONSink("localhost", 8080, "workspace0");
 		graph.addSink(jsonSink);
 		
 		gen.addSink(graph);
