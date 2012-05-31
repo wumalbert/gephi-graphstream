@@ -373,9 +373,11 @@ public class JSONSink implements Sink {
     		    InputStream inputStream = connection.getInputStream();
     		    BufferedReader bf = new BufferedReader(new InputStreamReader(inputStream));
     		    String line;
+    		    StringBuilder sb = new StringBuilder();
     		    while ((line = bf.readLine()) != null) {
-    		    	System.out.println(line);
+    		    	sb.append(line+'\n');
     		    }
+    		    System.out.println(sb.toString());
     		    inputStream.close();
     		    
             } catch (UnknownServiceException e) {
