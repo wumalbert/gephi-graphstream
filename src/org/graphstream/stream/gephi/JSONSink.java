@@ -48,12 +48,9 @@ public class JSONSink implements Sink {
 		JSONObject jsonObj = null;
 		try {
 			jsonObj = new JSONObject()
-							.put(Types.CE.value(), new JSONObject()
-								.put(edgeId, new JSONObject()
-									.put(attribute, value)
-								)
-							)
-							.put(Fields.T.value(), timeId);
+					.put(Types.CE.value(), new JSONObject()
+						.put(edgeId, new JSONObject()
+							.put(attribute, value)));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -73,13 +70,11 @@ public class JSONSink implements Sink {
 		JSONObject jsonObj = null;
 		try {
 			jsonObj = new JSONObject()
-							.put(Types.CE.value(), new JSONObject()
-								.put(edgeId, new JSONObject()
-									.put(attribute, newValue)
-								)
-							)
-							.put(Fields.T.value(), timeId);
-		} catch (JSONException e) {
+					.put(Types.CE.value(), new JSONObject()
+						.put(edgeId, new JSONObject()
+							.put(attribute, newValue)
+						    ));
+		} catch (JSONException e) {	
 			e.printStackTrace();
 		}
 		System.out.println(jsonObj.toString());

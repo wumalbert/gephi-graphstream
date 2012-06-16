@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="src-test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="D:/eclipse/plugins/org.junit_4.8.2.v4_8_2_v20110321-1705/junit.jar"/>
+	<classpathentry kind="lib" path="D:/Program Files/eclipse/plugins/org.junit_4.8.2.v4_8_2_v20110321-1705/junit.jar"/>
 	<classpathentry kind="lib" path="lib/gs-algo-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/gs-core-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
